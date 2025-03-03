@@ -51,3 +51,27 @@ console.log(borrower1.borrowedBooks);
 borrower1.returnBook("The Great Gatsby");
 console.log(borrower1.borrowedBooks);
 // Expected: []
+
+// Task 3 - Library class to manage books and borrowers
+class Library {
+    constructor() {
+        this.books = [];
+        this.borrowers = [];
+    }
+
+    addBook(book) {
+        this.books.push(book);
+    }
+
+    listBooks() {
+        this.books.forEach(book => {
+            console.log(book.getDetails());
+        });
+    }
+}
+
+// Test case for Task 3
+const library = new Library();
+library.addBook(book1);
+library.listBooks();
+// Expected output: Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 4
