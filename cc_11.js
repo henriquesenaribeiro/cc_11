@@ -75,3 +75,32 @@ const library = new Library();
 library.addBook(book1);
 library.listBooks();
 // Expected output: Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 4
+
+// Task 4 - Lending system that reduces book copies and updates borrower's records
+Library.prototype.lendBook = function(borrowerId, isbn) {
+    const book = this.books.find(b => b.isbn === isbn);
+    const borrower = this.borrowers.find(b => b.borrowerId === borrowerId);
+
+    if (!book || !borrower) {
+        console.log("Book or Borrower not found.");
+        return;
+    }
+
+    if (book.copies > 0) {
+        book.updateCopies(-1);
+        borrower.borrowBook(book.title);
+    } else {
+        console.log("Book is not available.");
+    }
+};
+
+// Additional setup for test case 4
+library.borrowers.push(borrower1); // Add borrower to library before lending
+
+// Test case for Task 4
+library.lendBook(201, 123456);
+console.log(book1.getDetails());
+// Expected: Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 3
+
+console.log(borrower1.borrowedBooks);
+// Expected: ["The Great Gatsby"]
