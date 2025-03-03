@@ -104,3 +104,29 @@ console.log(book1.getDetails());
 
 console.log(borrower1.borrowedBooks);
 // Expected: ["The Great Gatsby"]
+
+// Task 5 - Returning system that increases book copies and updates borrower's records
+Library.prototype.returnBook = function(borrowerId, isbn) {
+    const book = this.books.find(b => b.isbn === isbn);
+    const borrower = this.borrowers.find(b => b.borrowerId === borrowerId);
+
+    if (!book || !borrower) {
+        console.log("Book or Borrower not found.");
+        return;
+    }
+
+    if (borrower.borrowedBooks.includes(book.title)) {
+        book.updateCopies(1);
+        borrower.returnBook(book.title);
+    } else {
+        console.log("This borrower did not borrow this book.");
+    }
+};
+
+// Test case for Task 5
+library.returnBook(201, 123456);
+console.log(book1.getDetails());
+// Expected: Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 4
+
+console.log(borrower1.borrowedBooks);
+// Expected: []
